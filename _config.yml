@@ -1,6 +1,6 @@
 title: "dclz's blogs"
 author: "Duong Hoang"
-description: "Made with <b style=\"color: #f45;\">&lt;3</b>"
+description: "Knowledge is power!"
 permalink: /:title/
 lang: "en"
 excerpt_separator: "\n\n\n"
@@ -21,7 +21,7 @@ navigation:                # accepts {file, title, url, icon, sidebaricon}
 external:                  # shows a footer with social links - for available icons see fontawesome.com/icons
   - {title: Mail, icon: envelope, url: "mailto:duong.ht0831@gmail.com"}
   - {title: Github, icon: github, url: "https://github.com/d-clz"}
-  - {title: Subscribe, icon: rss, url: "/feed.xml"}
+  - {title: Linkedin, icon: linkedin, url: "https://www.linkedin.com/in/dclz/"}
 
 comments:
 #  disqus_shortname: ""    # see https://disqus.com/
