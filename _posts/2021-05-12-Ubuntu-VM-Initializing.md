@@ -10,14 +10,14 @@ Setting up a new VM machine running Ubuntu with:
 - Additional: docker, net-tools, nmap, etc.
 
 
-## Initializing new Ubuntu VM instance
-### General
+## Initializing new Ubuntu VM instance{: style="color: cyan; opacity: 1;"}
+### General{: style="color: cyan; opacity: 0.80;"}
 ```
     sudo apt update && sudo apt upgrade -y
     sudo apt install -y git zsh neovim curl wget htop net-tools nmap'
 ```
 
-### oh-my-zsh
+### oh-my-zsh{: style="color: cyan; opacity: 0.80;"}
 - Install oh-my-zsh scrip
 ```
     sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
@@ -35,7 +35,7 @@ Setting up a new VM machine running Ubuntu with:
     git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 ```
 
-### neovim & vimplug
+### neovim & vimplug{: style="color: cyan; opacity: 0.80;"}
 - Install vimplug 
 ```
     sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
@@ -46,8 +46,8 @@ Setting up a new VM machine running Ubuntu with:
     git clone https://github.com/d-clz/nvim.git
 ```
 
-### docker & docker-compose
-#### using repository
+### docker & docker-compose{: style="color: cyan; opacity: 0.80;"}
+#### using repository{: style="color: cyan; opacity: 0.80;"}
 - Setup the repository
 ```
     sudo apt-get install apt-transport-https ca-certificates curl gnupg lsb-release
@@ -68,13 +68,13 @@ echo \
     sudo apt-get install docker-ce docker-ce-cli containerd.io
 ```
 
-#### using script
+#### using script{: style="color: cyan; opacity: 0.80;"}
 ```
     curl -fsSL https://get.docker.com -o get-docker.sh
     sudo sh get-docker.sh
 ```
 
-#### using docker without sudo
+#### using docker without sudo{: style="color: cyan; opacity: 0.80;"}
 ```
     sudo usermod -aG docker <username>
 ```
