@@ -5,8 +5,8 @@ categories: linux
 ---
 
 Setting up a new VM machine running Ubuntu with:
-- **zsh** using ![oh-my-zsh](https://ohmyz.sh) and ![spacship prompt](https://github.com/denysdovhan/spaceship-prompt) theme.
-- **neovim** with ![vimplug](https://github.com/junegunn/vim-plug) plugin.
+- **zsh** using [oh-my-zsh](https://ohmyz.sh) and [spacship prompt](https://github.com/denysdovhan/spaceship-prompt) theme.
+- **neovim** with [vimplug](https://github.com/junegunn/vim-plug) plugin.
 - Additional: docker, net-tools, nmap, etc.
 
 
