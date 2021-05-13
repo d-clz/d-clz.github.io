@@ -1,6 +1,12 @@
-## Initializing new Ubuntu VM instance
+---
+title: "Ubuntu VM Initializing"
+layout: post
+categories: linux
+---
 
-![Ubuntu 20.04 LTS](https://149366088.v2.pressablecdn.com/wp-content/uploads/2020/02/Focal-Fossa-wallpaper-greyscale.jpg "Ubuntu Setting up")
+![Ubuntu 20.04 LTS](https://149366088.v2.pressablecdn.com/wp-content/uploads/2020/02/Focal-Fossa-wallpaper-greyscale.jpg)
+
+## Initializing new Ubuntu VM instance
 
 ### General
 `sudo apt update && sudo apt upgrade -y`
