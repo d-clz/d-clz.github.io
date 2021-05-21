@@ -5,7 +5,7 @@ categories: linux, logitech, logiops, archlinux
 ---
 
 `logiops` is an unofficial driver for Logitech mice and keyboard
-*(Currently compatible only with HID++ >2.0 devices.)*  
+[*(Currently compatible only with HID++ >2.0 devices.)*](https://github.com/PixlOne/logiops/blob/master/TESTED.md)  
 
 In this article, we will try to customize Logitech MX Anywhere 3 Wireless Mouse buttons using [logiops](https://github.com/PixlOne/logiops), as a replace solution for [Logitech Options](https://www.logitech.com/en-us/product/options) which support Windows & Mac only.  
 
