@@ -60,15 +60,134 @@ In this article, we will try to customize Logitech MX Anywhere 3 Wireless Mouse 
 [DEBUG] 0xc4 | YES     |         | YES        | YES
 [DEBUG] 0xd7 | YES     |         |            | YES
 ```
+
 ![buttons](https://file.hstatic.net/1000129940/file/logitech-mx-anywhere-3-for-mac-nd-6_a6ffe0961f614739ad79464bbf9587c4.jpg)
-MX Anywhere 3 Button's CID table:
+
+MX Anywhere 3 Button's CID table:  
+
 | Buttons           | CID  |
 |:------------------|:----:|
 |Magspeed Wheel     | 0x52 |
 |Mode Shift Button  | 0xc4 |
 |Back (thumb button)| 0x53 |
 |Forward (thumb btn)| 0x56 |
+
 All these 4 keys are gestures supported, we're going to customize them.  
 Other 3 buttons are Mouse click buttons (`0x50` and `0x51`) and Devices Swicht Button (`0xd7`), just leave them alone for not getting fucked.
-### 3. Customize configurations
 
+### 3. Customize configurations
+- Smartshift configurations:
+```
+  smartshift: {
+    on: true;
+    threshold: 50;
+  };
+```
+- High Resolution Scroll configurations:
+```
+  hiresscroll: {
+    hires: true; 
+    invert: true;
+    target: true;
+       up: {
+            mode: "Axis";
+            axis: "REL_WHEEL_HI_RES";
+            axis_multiplier: -1;
+        },
+        down: {
+            mode: "Axis";
+            axis: "REL_WHEEL_HI_RES";
+            axis_multiplier: 1;
+        }
+  };
+```
+- Magspeed Wheel Button Customize:
+```
+    buttons: (
+        {
+            cid: 0x52;
+            action =
+            {                        
+                type: "Gestures";
+                gestures: (
+                    {                         
+                        direction: "Left";     
+                        mode: "OnInterval";
+                        interval: 10;
+                        action =
+                        {                        
+                            type: "Keypress";            
+                            keys: ["KEY_VOLUMEDOWN"];
+                        };
+                    },   
+                    {                          
+                        direction: "Right";    
+                        mode: "OnInterval";
+                        interval: 10;
+                        action =
+                        {                        
+                            type: "Keypress";          
+                            keys: ["KEY_VOLUMEUP"];
+                        };
+                    },   
+                    {                        
+                        direction: "None"     
+                        mode: "OnRelease";
+                        action = 
+                        {                        
+                            type: "Keypress";        
+                            keys: ["BTN_MIDDLE"];
+                        }
+                    } 
+                );
+            };
+        }
+```
+Usages:
+    - Hold down button and move to trigger gesture:
+        - Left: Volume -
+        - Right: Volume +
+        - Click: Middle Mouse
+
+- Mode shift button:
+```
+         {
+            cid: 0xc4; 
+            action =
+            {
+                type: "Gestures";
+                gestures: (
+                    {
+                        direction: "None";
+                        mode: "OnRelease";
+                        action = {
+                            type: "CycleDPI";
+                            dpis: [400, 1600, 2800];
+                        }
+                    }
+                );
+            }
+        }
+```
+- Thumb button
+```
+        {
+            cid: 0x53;
+            action =
+            {
+                type: "Keypress";
+                keys: ["KEY_BACK"];
+            };
+        },
+        {
+            cid: 0x56;
+            action =
+            {
+                type: "Keypress";
+                keys: ["KEY_FORWARD"];
+            };
+    }
+    );
+}
+);
+```
