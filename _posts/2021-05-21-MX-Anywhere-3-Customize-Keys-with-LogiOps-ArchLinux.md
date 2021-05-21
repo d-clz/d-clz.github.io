@@ -148,7 +148,7 @@ Usages:
         - Left: Volume -
         - Right: Volume +
         - Click: Middle Mouse
-
+```
 - Mode shift button:
 ```
          {
@@ -169,6 +169,7 @@ Usages:
             }
         }
 ```
+
 - Thumb button
 ```
         {
@@ -191,3 +192,8 @@ Usages:
 }
 );
 ```
+
+### References
+- [PixlOne/logiops](https://github.com/PixlOne/logiops/wiki/Configuration)
+- [Logitech Archwiki](https://wiki.archlinux.org/title/Logitech_MX_Master)
+- [Linux event codes](https://github.com/torvalds/linux/blob/master/include/uapi/linux/input-event-codes.h)
