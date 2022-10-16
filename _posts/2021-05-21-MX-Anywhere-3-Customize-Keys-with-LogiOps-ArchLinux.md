@@ -1,7 +1,14 @@
 ---
 title: "Customize MX Anywhere 3 with LogiOps [ArchLinux]"
 layout: post
-categories: linux, logitech, logiops, archlinux
+categories: 
+- setup
+- configurations
+tags:
+- linux
+- logitech
+- logiops
+- archlinux
 ---
 
 `logiops` is an unofficial driver for Logitech mice and keyboard

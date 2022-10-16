@@ -1,7 +1,12 @@
 ---
 title: "Window & Powershell Initializing Setup"
 layout: post
-categories: window, powershell
+categories: 
+- setup
+tags:
+- windows
+- powershell
+- neovim
 ---
 
 Seting up a new working environment for Windows.

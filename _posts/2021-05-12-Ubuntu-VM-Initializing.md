@@ -2,6 +2,11 @@
 title: "Ubuntu VM Initializing"
 layout: post
 categories: linux
+tags:
+- linux
+- ubuntu/debian
+- zsh
+- neovim
 ---
 
 Setting up a new VM machine running Ubuntu with:
