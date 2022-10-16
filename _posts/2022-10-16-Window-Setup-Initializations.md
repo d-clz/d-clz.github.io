@@ -4,6 +4,8 @@ layout: post
 categories: window, powershell
 ---
 
+{% include JB/setup %}
+
 Seting up a new working environment for Windows.
 Since my company assign me a window11 workstation in my onboarding day, I realize that I need to have to workaround with Windows an PowerShell. Hope there's something you guys can use 😃.
 
@@ -58,7 +60,7 @@ iwr -useb https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim |`
 ```
 - Configuring Neovim & vim-plug:
 By default for window, nvim's stdpath at `C:\Users\$USERNAME\AppData\Local\nvim`. You can open a new nvim and type `:h init.vim` to check it out.
-![[vim-init.png]]
+![vim-init.png]({{ site.url }}/assets/images/vim-init.png)
 - Create whatever you want for the vim-plug configurations inside `init.vim`. For references, checkout my default configurations at [github](https://github.com/d-clz/nvim.git).
 - Start nvim and run `:PlugInstall`, nvim is now ready to use 👌.
 ## Docker & Docker-compose
