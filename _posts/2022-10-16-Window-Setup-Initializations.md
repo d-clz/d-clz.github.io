@@ -12,11 +12,11 @@ tags:
 Seting up a new working environment for Windows.
 Since my company assign me a window11 workstation in my onboarding day, I realize that I need to have to workaround with Windows an PowerShell. Hope there's something you guys can use 😃.
 
-## WSL2
-
-
 ## Terminal
-
+### 1. PowerShell 7
+Windows came with PowerShell 5.1 by default.
+If you're willing to try, here's the [tutorial](https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.2).
+### 2. Windows Terminal
 
 ## PowerShell
 ### 1. Chocolately
@@ -64,6 +64,47 @@ Add one more if you’d like to view all autocomplete options after pressing TAB
 Set-PSReadlineKeyHandler -Chord Tab -Function MenuComplete
 ```
 
+### 4. MagicTooltips
+This gif explain everything 😆.
+![demo](https://raw.githubusercontent.com/pschaeflein/MagicTooltips/main/media/demo.gif)
+
+- Prerequisites:
+	- PoweShell 7+
+	- NerdFont (optional)
+- Installations:
+```
+Install-Module MagicTooltips
+```
+- Profile Configurations:
+```
+$global:MagicTooltipsSettings = @{
+    HorizontalAlignment = "Right"
+    VerticalOffset = 0
+    HorizontalOffset = 2
+    Providers= @{
+        Azure = @{
+            Commands = "az,terraform,pulumi,terragrunt"
+            FgColor = "#3A96DD"
+            Template = "\ufd03 {value}"
+        }
+        Kubernetes = @{
+            Commands = "k,kubectl,helm,kubens,kubectx,oc,istioctl,kogito,k9s,helmfile"
+            FgColor = "#3970e4"
+            Template = "\ufd31 {value}"
+        }
+        Aws = @{
+            Commands = "aws,awless,terraform,pulumi,terragrunt"
+            FgColor = "#EC7211"
+            BgColor = ""
+            Template = "\uf270 {value}"
+        }
+    }
+}
+Import-Module MagicTooltips
+```
+- Result
+![](content/images/2022/10/pwsh-final.png)
+
 ## Neovim
 For me, who start with the Linux Vim since the first day, Window Notepad or even Notepad++ such a pain for typing 😅.
 - First install Neovim with chocolately:
@@ -71,7 +112,7 @@ For me, who start with the Linux Vim since the first day, Window Notepad or even
 choco install neovim
 ```
 - Install [vim-plug](https://github.com/junegunn/vim-plug):
-```PowerShell
+```
 iwr -useb https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim |`
     ni "$(@($env:XDG_DATA_HOME, $env:LOCALAPPDATA)[$null -eq $env:XDG_DATA_HOME])/nvim-data/site/autoload/plug.vim" -Force
 ```
@@ -81,6 +122,7 @@ By default for window, nvim's stdpath at `C:\Users\$USERNAME\AppData\Local\nvim`
 ![vim-init.png](content/images/2022/10/vim-init.png)
 - Create whatever you want for the vim-plug configurations inside `init.vim`. For references, checkout my default configurations at [github](https://github.com/d-clz/nvim.git).
 - Start nvim and run `:PlugInstall`, nvim is now ready to use 👌.
+
 ## Docker & Docker-compose
 
 ## Kubectl
