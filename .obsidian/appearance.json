@@ -1,0 +1,10 @@
+{
+  "accentColor": "#5c81dd",
+  "cssTheme": "Atom",
+  "interfaceFontFamily": "CodeNewRoman NF",
+  "textFontFamily": "CodeNewRoman Nerd Font Mono",
+  "monospaceFontFamily": "CodeNewRoman Nerd Font Mono",
+  "baseFontSize": 12,
+  "translucency": true,
+  "nativeMenus": true
+}
