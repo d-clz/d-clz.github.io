@@ -1,0 +1,106 @@
+---
+---
+<div class="search-box">
+  <input id="search-input" type="search" placeholder="Search posts (semantic)…" autocomplete="off" />
+  <p id="search-status" class="muted" hidden></p>
+  <ul id="search-results"></ul>
+</div>
+
+<style>
+  .search-box { margin-bottom: 2rem; }
+  #search-input {
+    width: 100%;
+    padding: 0.6rem 0.8rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--bg);
+    color: var(--fg);
+    font-size: 1rem;
+  }
+  #search-results { list-style: none; padding: 0; margin: 0.5rem 0 0; }
+  #search-results li { padding: 0.5rem 0; border-bottom: 1px solid var(--border); }
+  #search-results a { font-weight: 600; }
+</style>
+
+<script>
+  const input = document.getElementById('search-input');
+  const results = document.getElementById('search-results');
+  const status = document.getElementById('search-status');
+
+  let indexPromise = null;
+  let embedPromise = null;
+
+  function getIndex() {
+    if (!indexPromise) {
+      indexPromise = fetch('/search-index.json').then((r) => {
+        if (!r.ok) throw new Error(`search index not available (${r.status})`);
+        return r.json();
+      });
+    }
+    return indexPromise;
+  }
+
+  function getEmbedder() {
+    if (!embedPromise) {
+      embedPromise = (async () => {
+        status.hidden = false;
+        status.textContent = 'Loading search model…';
+        const { pipeline } = await import('@xenova/transformers');
+        const embed = await pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2');
+        status.hidden = true;
+        return embed;
+      })();
+    }
+    return embedPromise;
+  }
+
+  function cosineSim(a, b) {
+    let dot = 0;
+    for (let i = 0; i < a.length; i++) dot += a[i] * b[i];
+    return dot; // embeddings are pre-normalized, so dot product == cosine similarity
+  }
+
+  let debounceTimer;
+  input.addEventListener('focus', () => {
+    getEmbedder().catch(() => {});
+    getIndex().catch(() => {});
+  }, { once: true });
+  input.addEventListener('input', () => {
+    clearTimeout(debounceTimer);
+    const query = input.value.trim();
+    if (!query) {
+      results.innerHTML = '';
+      status.hidden = true;
+      return;
+    }
+    debounceTimer = setTimeout(() => runSearch(query), 250);
+  });
+
+  async function runSearch(query) {
+    status.hidden = false;
+    status.textContent = 'Searching…';
+    try {
+      const [index, embed] = await Promise.all([getIndex(), getEmbedder()]);
+      const output = await embed(query, { pooling: 'mean', normalize: true });
+      const queryVec = Array.from(output.data);
+      const scored = index.items
+        .map((item) => ({ item, score: cosineSim(queryVec, item.embedding) }))
+        .sort((a, b) => b.score - a.score)
+        .slice(0, 5);
+      status.hidden = true;
+      results.innerHTML = scored
+        .map(
+          ({ item }) => `
+          <li>
+            <a href="${item.url}">${item.title}</a>
+            <div class="muted">${item.excerpt}</div>
+          </li>`
+        )
+        .join('');
+    } catch (err) {
+      status.hidden = false;
+      status.textContent = 'Search is unavailable right now.';
+      results.innerHTML = '';
+    }
+  }
+</script>
