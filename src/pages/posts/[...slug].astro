@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import WindowChrome from '../../components/WindowChrome.astro';
 import '../../styles/prose.css';
 import { getCollection } from 'astro:content';
 
@@ -17,10 +16,8 @@ const { Content } = await post.render();
 ---
 <BaseLayout title={post.data.title} activeNav="posts">
   <article class="glass-panel">
-    <WindowChrome title={`~/posts/${post.slug}.md`}>
-      <a class="win-action" href="/">← posts</a>
-    </WindowChrome>
     <div class="prose">
+      <span class="post-path">~/posts/{post.slug}.md</span>
       <h1>{post.data.title}</h1>
       <p class="meta">
         <span class="post-date">

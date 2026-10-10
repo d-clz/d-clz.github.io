@@ -3,14 +3,21 @@
 
 .win-header {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
+  flex-direction: column;
+  gap: 0.85rem;
   padding: 1rem 1.25rem;
   border-bottom: 1px solid rgba(236, 239, 244, 0.1);
   background: rgba(236, 239, 244, 0.05);
   user-select: none;
   flex-shrink: 0;
+}
+
+.win-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
 }
 
 .win-left {
@@ -88,7 +95,7 @@
   .win-header { padding: 0.75rem 1rem; }
   .window-controls { margin-right: 0.5rem; }
 
-  .win-header,
+  .win-top-row,
   .win-left { align-items: flex-start; }
 
   .window-controls { margin-top: 0.3rem; }

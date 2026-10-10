@@ -24,6 +24,18 @@ body {
   margin-bottom: 2rem;
 }
 
+/* .glass-panel defaults to overflow:hidden for its rounded corners, but the
+   search dropdown needs to float outside the header's bounds. Two classes
+   for specificity, since import order alone wouldn't guarantee this wins.
+   backdrop-filter also makes the header its own stacking context, so the
+   dropdown's z-index only ranks it within the header — without lifting the
+   header itself above <main>, main's later-in-DOM content paints over it. */
+.glass-panel.site-nav {
+  position: relative;
+  z-index: 10;
+  overflow: visible;
+}
+
 .site-links {
   display: flex;
   flex-wrap: wrap;

@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import SearchBox from '../components/SearchBox.astro';
 import '../styles/cards.css';
 import { getCollection } from 'astro:content';
 
@@ -21,7 +20,6 @@ function excerptOf(markdown: string, len = 160) {
 }
 ---
 <BaseLayout title="Posts" activeNav="posts">
-  <SearchBox />
   <div class="posts-grid">
     {posts.map((post) => (
       <a class="post-card glass-panel" href={`/posts/${post.slug}/`}>

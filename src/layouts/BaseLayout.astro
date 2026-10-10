@@ -1,5 +1,6 @@
 ---
 import LiquidBackground from '../components/LiquidBackground.astro';
+import SearchBox from '../components/SearchBox.astro';
 import '../styles/palette.css';
 import '../styles/base.css';
 import '../styles/background.css';
@@ -33,22 +34,25 @@ const { title, description = 'Blog from my Self-Notes', activeNav } = Astro.prop
     <LiquidBackground />
     <div class="site-shell">
       <header class="win-header site-nav glass-panel">
-        <div class="win-left">
-          <div class="window-controls" aria-hidden="true">
-            <i class="red"></i>
-            <i class="yellow"></i>
-            <i class="green"></i>
+        <div class="win-top-row">
+          <div class="win-left">
+            <div class="window-controls" aria-hidden="true">
+              <i class="red"></i>
+              <i class="yellow"></i>
+              <i class="green"></i>
+            </div>
+            <a class="win-title" href="/">
+              <span aria-hidden="true">📁</span>
+              <span>~/dclz</span>
+            </a>
           </div>
-          <a class="win-title" href="/">
-            <span aria-hidden="true">📁</span>
-            <span>~/dclz</span>
-          </a>
+          <nav class="site-links">
+            <a class={`win-action ${activeNav === 'posts' ? 'active' : ''}`} href="/">posts</a>
+            <a class={`win-action ${activeNav === 'about' ? 'active' : ''}`} href="/about/">about</a>
+            <a class="win-action" href="https://d-clz.github.io/portfolio/">portfolio ↗</a>
+          </nav>
         </div>
-        <nav class="site-links">
-          <a class={`win-action ${activeNav === 'posts' ? 'active' : ''}`} href="/">posts</a>
-          <a class={`win-action ${activeNav === 'about' ? 'active' : ''}`} href="/about/">about</a>
-          <a class="win-action" href="https://d-clz.github.io/portfolio/">portfolio ↗</a>
-        </nav>
+        <SearchBox />
       </header>
       <main>
         <slot />
