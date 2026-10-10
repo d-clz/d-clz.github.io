@@ -1,0 +1,88 @@
+/* src/styles/sidebar.css
+   A two-column layout with a sticky "git-tree" rail on the left — a branch
+   line with one dot per item, the current item's dot filled via scrollspy.
+   Ported from the astro-palette theme's article TOC, reused here for both
+   the post table of contents and the home-page post timeline. */
+
+.layout-with-rail {
+  display: grid;
+  grid-template-columns: minmax(8rem, 12rem) minmax(0, 1fr);
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: start;
+}
+
+.rail-main {
+  min-width: 0;
+}
+
+.side-rail {
+  position: sticky;
+  top: 1.5rem;
+  padding: 1.25rem 1.4rem;
+  color: var(--n4);
+  font-size: 0.8rem;
+}
+
+/* Lighter and more transparent than the content panels (.post-card,
+   article) — those stay fairly opaque for dense text; this one holds just
+   a few short labels, so it can afford to read as actual glass over the
+   aurora blobs instead of a near-solid card. Two classes for specificity:
+   see the .glass-panel.site-nav comment in base.css for why that's needed. */
+.side-rail.glass-panel {
+  background: linear-gradient(to bottom right, rgba(59, 66, 82, .16), rgba(46, 52, 64, .08));
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-color: rgba(236, 239, 244, .18);
+}
+
+.rail-nav {
+  display: grid;
+  gap: 0.9rem;
+  margin-left: 5px;
+  border-left: 2px solid rgba(236, 239, 244, .2);
+}
+
+.rail-nav a {
+  position: relative;
+  padding-left: 1.1rem;
+  color: var(--n4);
+  line-height: 1.35;
+  text-decoration: none;
+}
+
+.rail-nav a::before {
+  content: "";
+  position: absolute;
+  left: -6px;
+  top: 0.22em;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid rgba(236, 239, 244, .5);
+  background: var(--n0);
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.rail-nav a:hover,
+.rail-nav a[aria-current="true"] {
+  color: var(--n8);
+}
+
+.rail-nav a:hover::before {
+  border-color: var(--n8);
+}
+
+.rail-nav a[aria-current="true"]::before {
+  border-color: var(--n8);
+  background: var(--n8);
+}
+
+@media (max-width: 1000px) {
+  .layout-with-rail {
+    display: block;
+  }
+
+  .side-rail {
+    display: none;
+  }
+}

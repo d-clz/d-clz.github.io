@@ -1,0 +1,27 @@
+---
+// src/components/SideRail.astro
+// The left-column "git-tree" nav: one dot per item, filled when active.
+// Pair with a scrollspy script that sets aria-current on the matching
+// [data-rail-link] as the user scrolls (see posts/[...slug].astro and
+// index.astro for the two watchers this drives).
+interface Item {
+  key: string;
+  href: string;
+  label: string;
+}
+interface Props {
+  items: Item[];
+  ariaLabel: string;
+}
+const { items, ariaLabel } = Astro.props;
+---
+
+<aside class="side-rail glass-panel" aria-label={ariaLabel}>
+  {items.length > 0 && (
+    <nav class="rail-nav">
+      {items.map((item) => (
+        <a href={item.href} data-rail-link={item.key}>{item.label}</a>
+      ))}
+    </nav>
+  )}
+</aside>

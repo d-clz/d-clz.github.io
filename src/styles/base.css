@@ -19,6 +19,12 @@ body {
   padding: 1.5rem 1.25rem 4rem;
 }
 
+/* Pages with a .layout-with-rail sidebar (TOC, timeline) need the extra
+   room so the main content column doesn't get squeezed. */
+.site-shell--wide {
+  max-width: 1150px;
+}
+
 .site-nav {
   border-radius: 12px;
   margin-bottom: 2rem;

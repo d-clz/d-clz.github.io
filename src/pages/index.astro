@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import SideRail from '../components/SideRail.astro';
 import '../styles/cards.css';
+import '../styles/sidebar.css';
 import { getCollection } from 'astro:content';
 
 const posts = (await getCollection('posts')).sort(
@@ -19,20 +21,41 @@ function excerptOf(markdown: string, len = 160) {
   return text.length > len ? text.slice(0, len).trim() + '…' : text;
 }
 ---
-<BaseLayout title="Posts" activeNav="posts">
-  <div class="posts-grid">
-    {posts.map((post) => (
-      <a class="post-card glass-panel" href={`/posts/${post.slug}/`}>
-        <span class="post-path">~/posts/{post.slug}.md</span>
-        <h2>{post.data.title}</h2>
-        <p class="post-excerpt">{post.data.excerpt ?? excerptOf(post.body)}</p>
-        <div class="post-meta">
-          <span class="post-date">
-            {post.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
-          </span>
-          {post.data.tags.map((tag) => <span class="post-tag">{tag}</span>)}
-        </div>
-      </a>
-    ))}
+<BaseLayout title="Posts" activeNav="posts" wide>
+  <div class="layout-with-rail">
+    <SideRail
+      ariaLabel="Post timeline"
+      items={posts.map((post) => ({
+        key: post.slug,
+        href: `#${post.slug}`,
+        label: post.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'short' }),
+      }))}
+    />
+    <div class="posts-grid rail-main">
+      {posts.map((post) => (
+        <a class="post-card glass-panel" id={post.slug} href={`/posts/${post.slug}/`}>
+          <span class="post-path">~/posts/{post.slug}.md</span>
+          <h2>{post.data.title}</h2>
+          <p class="post-excerpt">{post.data.excerpt ?? excerptOf(post.body)}</p>
+          <div class="post-meta">
+            <span class="post-date">
+              {post.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+            </span>
+            {post.data.tags.map((tag) => <span class="post-tag">{tag}</span>)}
+          </div>
+        </a>
+      ))}
+    </div>
   </div>
 </BaseLayout>
+
+<script>
+  import { initScrollspy } from '../lib/scrollspy';
+
+  function init() {
+    const cards = Array.from(document.querySelectorAll('.post-card[id]'));
+    for (const c of cards) c.setAttribute('data-rail-key', c.id);
+    initScrollspy(cards);
+  }
+  init();
+</script>
