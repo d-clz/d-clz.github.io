@@ -10,9 +10,10 @@ import '../styles/panel.css';
 interface Props {
   title: string;
   description?: string;
-  activeNav?: 'posts' | 'about';
+  activeNav?: 'posts' | 'projects';
+  wide?: boolean;
 }
-const { title, description = 'Blog from my Self-Notes', activeNav } = Astro.props;
+const { title, description = 'Blog from my Self-Notes', activeNav, wide = false } = Astro.props;
 ---
 <!doctype html>
 <html lang="en">
@@ -32,7 +33,7 @@ const { title, description = 'Blog from my Self-Notes', activeNav } = Astro.prop
   </head>
   <body>
     <LiquidBackground />
-    <div class="site-shell">
+    <div class={`site-shell ${wide ? 'site-shell--wide' : ''}`}>
       <header class="win-header site-nav glass-panel">
         <div class="win-top-row">
           <div class="win-left">
@@ -48,7 +49,7 @@ const { title, description = 'Blog from my Self-Notes', activeNav } = Astro.prop
           </div>
           <nav class="site-links">
             <a class={`win-action ${activeNav === 'posts' ? 'active' : ''}`} href="/">posts</a>
-            <a class={`win-action ${activeNav === 'about' ? 'active' : ''}`} href="/about/">about</a>
+            <a class={`win-action ${activeNav === 'projects' ? 'active' : ''}`} href="/projects/">projects</a>
             <a class="win-action" href="https://d-clz.github.io/portfolio/">portfolio ↗</a>
           </nav>
         </div>

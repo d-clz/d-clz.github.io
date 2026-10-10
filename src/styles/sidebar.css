@@ -1,0 +1,76 @@
+/* src/styles/sidebar.css
+   A two-column layout with a sticky "git-tree" rail on the left — a branch
+   line with one dot per item, the current item's dot filled via scrollspy.
+   Ported from the astro-palette theme's article TOC, reused here for both
+   the post table of contents and the home-page post timeline. */
+
+.layout-with-rail {
+  display: grid;
+  grid-template-columns: minmax(8rem, 12rem) minmax(0, 1fr);
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: start;
+}
+
+.rail-main {
+  min-width: 0;
+}
+
+.side-rail {
+  position: sticky;
+  top: 1.5rem;
+  padding-top: 0.35rem;
+  color: var(--n3);
+  font-size: 0.78rem;
+}
+
+.rail-nav {
+  display: grid;
+  gap: 0.9rem;
+  margin-left: 5px;
+  border-left: 2px solid rgba(236, 239, 244, .1);
+}
+
+.rail-nav a {
+  position: relative;
+  padding-left: 1.1rem;
+  color: var(--n3);
+  line-height: 1.35;
+  text-decoration: none;
+}
+
+.rail-nav a::before {
+  content: "";
+  position: absolute;
+  left: -6px;
+  top: 0.22em;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid rgba(236, 239, 244, .25);
+  background: var(--n1);
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.rail-nav a:hover,
+.rail-nav a[aria-current="true"] {
+  color: var(--n8);
+}
+
+.rail-nav a:hover::before {
+  border-color: var(--n8);
+}
+
+.rail-nav a[aria-current="true"]::before {
+  border-color: var(--n8);
+  background: var(--n8);
+}
+
+@media (max-width: 1000px) {
+  .layout-with-rail {
+    display: block;
+  }
+
+  .side-rail {
+    display: none;
+  }
+}

@@ -65,6 +65,25 @@
   opacity: 0.6;
 }
 
+.project-links {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(236, 239, 244, .08);
+}
+
+.project-links a {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--n8);
+  text-decoration: none;
+}
+
+.project-links a:hover {
+  text-decoration: underline;
+}
+
 @media (max-width: 576px) {
   .post-card { padding: 1.25rem 1.4rem; }
 }

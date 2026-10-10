@@ -1,0 +1,23 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import '../styles/cards.css';
+import { PROJECTS } from '../data/projects';
+---
+<BaseLayout title="Projects" activeNav="projects">
+  <div class="posts-grid">
+    {PROJECTS.map((project) => (
+      <div class="post-card glass-panel">
+        <span class="post-path">~/projects/{project.title}</span>
+        <h2>{project.title}</h2>
+        <p class="post-excerpt">{project.tagline}</p>
+        <div class="post-meta">
+          {project.tech.map((t) => <span class="post-tag">{t}</span>)}
+        </div>
+        <div class="project-links">
+          <a href={project.github} target="_blank" rel="noopener">github ↗</a>
+          {project.url && <a href={project.url} target="_blank" rel="noopener">visit ↗</a>}
+        </div>
+      </div>
+    ))}
+  </div>
+</BaseLayout>

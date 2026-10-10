@@ -7,7 +7,7 @@ Personal blog, built with [Astro](https://astro.build) and deployed to GitHub Pa
 ```
 .
 ├── src/content/posts/   # blog posts (markdown)
-├── src/content/pages/   # static pages (about, etc.)
+├── src/data/projects.ts  # projects page content
 ├── src/components/       # SearchBox.astro — client-side semantic search
 ├── src/layouts/
 ├── src/pages/            # routes

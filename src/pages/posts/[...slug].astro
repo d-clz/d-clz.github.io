@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import SideRail from '../../components/SideRail.astro';
 import '../../styles/prose.css';
+import '../../styles/sidebar.css';
 import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -12,20 +14,38 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
-const { Content } = await post.render();
+const { Content, headings } = await post.render();
+const sections = headings.filter((h) => h.depth === 2);
 ---
-<BaseLayout title={post.data.title} activeNav="posts">
-  <article class="glass-panel">
-    <div class="prose">
-      <span class="post-path">~/posts/{post.slug}.md</span>
-      <h1>{post.data.title}</h1>
-      <p class="meta">
-        <span class="post-date">
-          {post.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
-        </span>
-        {post.data.tags.map((tag) => <span class="post-tag">{tag}</span>)}
-      </p>
-      <Content />
-    </div>
-  </article>
+<BaseLayout title={post.data.title} activeNav="posts" wide>
+  <div class="layout-with-rail">
+    <SideRail
+      ariaLabel="Article sections"
+      items={sections.map((h) => ({ key: h.slug, href: `#${h.slug}`, label: h.text }))}
+    />
+    <article class="glass-panel rail-main">
+      <div class="prose">
+        <span class="post-path">~/posts/{post.slug}.md</span>
+        <h1>{post.data.title}</h1>
+        <p class="meta">
+          <span class="post-date">
+            {post.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+          </span>
+          {post.data.tags.map((tag) => <span class="post-tag">{tag}</span>)}
+        </p>
+        <Content />
+      </div>
+    </article>
+  </div>
 </BaseLayout>
+
+<script>
+  import { initScrollspy } from '../../lib/scrollspy';
+
+  function init() {
+    const headings = Array.from(document.querySelectorAll('.prose h2[id]'));
+    for (const h of headings) h.setAttribute('data-rail-key', h.id);
+    initScrollspy(headings);
+  }
+  init();
+</script>
