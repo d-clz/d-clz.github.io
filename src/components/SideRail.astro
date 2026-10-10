@@ -16,7 +16,7 @@ interface Props {
 const { items, ariaLabel } = Astro.props;
 ---
 
-<aside class="side-rail" aria-label={ariaLabel}>
+<aside class="side-rail glass-panel" aria-label={ariaLabel}>
   {items.length > 0 && (
     <nav class="rail-nav">
       {items.map((item) => (

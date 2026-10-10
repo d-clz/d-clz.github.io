@@ -18,7 +18,7 @@
 .side-rail {
   position: sticky;
   top: 1.5rem;
-  padding-top: 0.35rem;
+  padding: 1.25rem 1.4rem;
   color: var(--n4);
   font-size: 0.8rem;
 }
