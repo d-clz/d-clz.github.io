@@ -19,21 +19,21 @@
   position: sticky;
   top: 1.5rem;
   padding-top: 0.35rem;
-  color: var(--n3);
-  font-size: 0.78rem;
+  color: var(--n4);
+  font-size: 0.8rem;
 }
 
 .rail-nav {
   display: grid;
   gap: 0.9rem;
   margin-left: 5px;
-  border-left: 2px solid rgba(236, 239, 244, .1);
+  border-left: 2px solid rgba(236, 239, 244, .2);
 }
 
 .rail-nav a {
   position: relative;
   padding-left: 1.1rem;
-  color: var(--n3);
+  color: var(--n4);
   line-height: 1.35;
   text-decoration: none;
 }
@@ -46,8 +46,8 @@
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  border: 2px solid rgba(236, 239, 244, .25);
-  background: var(--n1);
+  border: 2px solid rgba(236, 239, 244, .5);
+  background: var(--n0);
   transition: border-color 0.15s ease, background 0.15s ease;
 }
 
