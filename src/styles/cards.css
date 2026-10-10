@@ -1,0 +1,70 @@
+/* src/styles/cards.css
+   Post-listing grid, recolored to Nord. */
+
+.posts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.post-card {
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem 1.75rem;
+  color: inherit;
+  text-decoration: none;
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+
+.post-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--n8);
+  box-shadow: 0 30px 60px -15px rgba(0, 0, 0, .6);
+  text-decoration: none;
+}
+
+.post-card .post-path {
+  font-size: 0.7rem;
+  color: var(--n3);
+  margin-bottom: 0.75rem;
+}
+
+.post-card h2 {
+  margin: 0 0 0.6rem;
+  font-size: 1.2rem;
+  line-height: 1.35;
+  color: var(--n6);
+}
+
+.post-card .post-excerpt {
+  flex-grow: 1;
+  margin: 0 0 1rem;
+  color: var(--n4);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.post-card .post-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.72rem;
+}
+
+.post-card .post-date {
+  color: var(--n13);
+}
+
+.post-card .post-tag {
+  color: var(--n14);
+}
+
+.post-card .post-tag::before {
+  content: "#";
+  opacity: 0.6;
+}
+
+@media (max-width: 576px) {
+  .post-card { padding: 1.25rem 1.4rem; }
+}

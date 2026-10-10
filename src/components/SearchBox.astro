@@ -1,25 +1,63 @@
 ---
 ---
-<div class="search-box">
+<div class="search-box glass-panel">
   <input id="search-input" type="search" placeholder="Search posts (semantic)…" autocomplete="off" />
-  <p id="search-status" class="muted" hidden></p>
+  <p id="search-status" hidden></p>
   <ul id="search-results"></ul>
 </div>
 
 <style>
-  .search-box { margin-bottom: 2rem; }
+  .search-box {
+    margin-bottom: 2rem;
+    padding: 1.1rem 1.4rem;
+  }
   #search-input {
     width: 100%;
-    padding: 0.6rem 0.8rem;
-    border: 1px solid var(--border);
+    padding: 0.7rem 0.9rem;
+    border: 1px solid rgba(236, 239, 244, .15);
     border-radius: 8px;
-    background: var(--bg);
-    color: var(--fg);
+    background: rgba(0, 0, 0, .25);
+    color: var(--n6);
     font-size: 1rem;
+    font-family: inherit;
   }
-  #search-results { list-style: none; padding: 0; margin: 0.5rem 0 0; }
-  #search-results li { padding: 0.5rem 0; border-bottom: 1px solid var(--border); }
-  #search-results a { font-weight: 600; }
+  #search-input::placeholder {
+    color: var(--n3);
+  }
+  #search-input:focus {
+    outline: none;
+    border-color: var(--n8);
+  }
+  #search-status {
+    margin: 0.6rem 0 0;
+    font-size: 0.78rem;
+    color: var(--n3);
+  }
+  #search-results {
+    list-style: none;
+    padding: 0;
+    margin: 0.75rem 0 0;
+  }
+  #search-results li {
+    padding: 0.65rem 0;
+    border-top: 1px solid rgba(236, 239, 244, .08);
+  }
+  #search-results li:first-child {
+    border-top: none;
+  }
+  #search-results a {
+    font-weight: 600;
+    color: var(--n8);
+    text-decoration: none;
+  }
+  #search-results a:hover {
+    text-decoration: underline;
+  }
+  #search-results div {
+    margin-top: 0.2rem;
+    font-size: 0.85rem;
+    color: var(--n4);
+  }
 </style>
 
 <script>
@@ -93,7 +131,7 @@
           ({ item }) => `
           <li>
             <a href="${item.url}">${item.title}</a>
-            <div class="muted">${item.excerpt}</div>
+            <div>${item.excerpt}</div>
           </li>`
         )
         .join('');

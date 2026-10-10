@@ -1,23 +1,40 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SearchBox from '../components/SearchBox.astro';
+import '../styles/cards.css';
 import { getCollection } from 'astro:content';
 
 const posts = (await getCollection('posts')).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
 );
+
+function excerptOf(markdown: string, len = 160) {
+  const text = markdown
+    .replace(/```[\s\S]*?```/g, ' ')
+    .replace(/`[^`]*`/g, ' ')
+    .replace(/!\[[^\]]*\]\([^)]*\)/g, ' ')
+    .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1')
+    .replace(/[#>*_~-]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+  return text.length > len ? text.slice(0, len).trim() + '…' : text;
+}
 ---
-<BaseLayout title="Posts">
+<BaseLayout title="Posts" activeNav="posts">
   <SearchBox />
-  <ul style="list-style: none; padding: 0;">
+  <div class="posts-grid">
     {posts.map((post) => (
-      <li style="margin-bottom: 1.5rem;">
-        <a href={`/posts/${post.slug}/`}><h2 style="margin: 0 0 0.25rem;">{post.data.title}</h2></a>
-        <p class="muted">
-          {post.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
-          {post.data.tags.length > 0 && ' · ' + post.data.tags.join(', ')}
-        </p>
-      </li>
+      <a class="post-card glass-panel" href={`/posts/${post.slug}/`}>
+        <span class="post-path">~/posts/{post.slug}.md</span>
+        <h2>{post.data.title}</h2>
+        <p class="post-excerpt">{post.data.excerpt ?? excerptOf(post.body)}</p>
+        <div class="post-meta">
+          <span class="post-date">
+            {post.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+          </span>
+          {post.data.tags.map((tag) => <span class="post-tag">{tag}</span>)}
+        </div>
+      </a>
     ))}
-  </ul>
+  </div>
 </BaseLayout>

@@ -1,0 +1,26 @@
+---
+// src/components/WindowChrome.astro
+// macOS-style title bar. Anything passed as a child renders on the right side.
+import '../styles/window.css';
+
+interface Props {
+  title?: string;
+  icon?: string;
+}
+const { title, icon = '📁' } = Astro.props;
+---
+
+<header class="win-header">
+  <div class="win-left">
+    <div class="window-controls" aria-hidden="true">
+      <i class="red"></i>
+      <i class="yellow"></i>
+      <i class="green"></i>
+    </div>
+    <div class="win-title">
+      <span aria-hidden="true">{icon}</span>
+      <slot name="title"><span>{title}</span></slot>
+    </div>
+  </div>
+  <slot />
+</header>

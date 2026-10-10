@@ -1,0 +1,29 @@
+/* src/styles/palette.css
+   Nord (arctic-ice-theme, Sven Greb) — the canonical, well-documented
+   16-color Nord palette, used as plain CSS custom properties. */
+
+:root {
+  /* Polar Night — dark base */
+  --n0: #2e3440;
+  --n1: #3b4252;
+  --n2: #434c5e;
+  --n3: #4c566a;
+
+  /* Snow Storm — light text */
+  --n4: #d8dee9;
+  --n5: #e5e9f0;
+  --n6: #eceff4;
+
+  /* Frost — primary accents */
+  --n7: #8fbcbb;
+  --n8: #88c0d0;
+  --n9: #81a1c1;
+  --n10: #5e81ac;
+
+  /* Aurora — highlight accents */
+  --n11: #bf616a; /* red */
+  --n12: #d08770; /* orange */
+  --n13: #ebcb8b; /* yellow */
+  --n14: #a3be8c; /* green */
+  --n15: #b48ead; /* purple */
+}

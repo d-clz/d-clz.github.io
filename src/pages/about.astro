@@ -1,11 +1,18 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import WindowChrome from '../components/WindowChrome.astro';
+import '../styles/prose.css';
 import { getEntry } from 'astro:content';
 
 const page = await getEntry('pages', 'about');
 const { Content } = await page.render();
 ---
-<BaseLayout title={page.data.title}>
-  <h1>{page.data.title}</h1>
-  <Content />
+<BaseLayout title={page.data.title} activeNav="about">
+  <article class="glass-panel">
+    <WindowChrome title="~/about.md" />
+    <div class="prose">
+      <h1>{page.data.title}</h1>
+      <Content />
+    </div>
+  </article>
 </BaseLayout>
