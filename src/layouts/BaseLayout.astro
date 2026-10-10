@@ -1,9 +1,18 @@
 ---
+import LiquidBackground from '../components/LiquidBackground.astro';
+import SearchBox from '../components/SearchBox.astro';
+import '../styles/palette.css';
+import '../styles/base.css';
+import '../styles/background.css';
+import '../styles/window.css';
+import '../styles/panel.css';
+
 interface Props {
   title: string;
   description?: string;
+  activeNav?: 'posts' | 'about';
 }
-const { title, description = 'Blog from my Self-Notes' } = Astro.props;
+const { title, description = 'Blog from my Self-Notes', activeNav } = Astro.props;
 ---
 <!doctype html>
 <html lang="en">
@@ -12,75 +21,42 @@ const { title, description = 'Blog from my Self-Notes' } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title} · Dclz</title>
     <meta name="description" content={description} />
+    <meta name="color-scheme" content="dark" />
     <link rel="icon" href="/favicon.svg" />
-    <style>
-      :root {
-        color-scheme: light dark;
-        --fg: #1a1a1a;
-        --bg: #ffffff;
-        --muted: #6b7280;
-        --accent: #2563eb;
-        --border: #e5e7eb;
-      }
-      @media (prefers-color-scheme: dark) {
-        :root {
-          --fg: #e5e7eb;
-          --bg: #0b0d12;
-          --muted: #9aa4b2;
-          --accent: #60a5fa;
-          --border: #22262e;
-        }
-      }
-      * { box-sizing: border-box; }
-      body {
-        margin: 0;
-        background: var(--bg);
-        color: var(--fg);
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-        line-height: 1.6;
-      }
-      main {
-        max-width: 720px;
-        margin: 0 auto;
-        padding: 2rem 1.25rem 4rem;
-      }
-      a { color: var(--accent); text-decoration: none; }
-      a:hover { text-decoration: underline; }
-      nav {
-        max-width: 720px;
-        margin: 0 auto;
-        padding: 1.25rem;
-        display: flex;
-        gap: 1.25rem;
-        align-items: center;
-        border-bottom: 1px solid var(--border);
-      }
-      nav .brand { font-weight: 700; margin-right: auto; }
-      pre {
-        background: #11141a;
-        color: #e5e7eb;
-        padding: 1rem;
-        border-radius: 8px;
-        overflow-x: auto;
-      }
-      code { font-size: 0.9em; }
-      :not(pre) > code {
-        background: var(--border);
-        padding: 0.1em 0.35em;
-        border-radius: 4px;
-      }
-      img { max-width: 100%; border-radius: 6px; }
-      .muted { color: var(--muted); font-size: 0.9rem; }
-    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <nav>
-      <a class="brand" href="/">Dclz</a>
-      <a href="/">Posts</a>
-      <a href="/about/">About</a>
-    </nav>
-    <main>
-      <slot />
-    </main>
+    <LiquidBackground />
+    <div class="site-shell">
+      <header class="win-header site-nav glass-panel">
+        <div class="win-top-row">
+          <div class="win-left">
+            <div class="window-controls" aria-hidden="true">
+              <i class="red"></i>
+              <i class="yellow"></i>
+              <i class="green"></i>
+            </div>
+            <a class="win-title" href="/">
+              <span aria-hidden="true">📁</span>
+              <span>~/dclz</span>
+            </a>
+          </div>
+          <nav class="site-links">
+            <a class={`win-action ${activeNav === 'posts' ? 'active' : ''}`} href="/">posts</a>
+            <a class={`win-action ${activeNav === 'about' ? 'active' : ''}`} href="/about/">about</a>
+            <a class="win-action" href="https://d-clz.github.io/portfolio/">portfolio ↗</a>
+          </nav>
+        </div>
+        <SearchBox />
+      </header>
+      <main>
+        <slot />
+      </main>
+    </div>
   </body>
 </html>

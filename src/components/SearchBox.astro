@@ -2,30 +2,52 @@
 ---
 <div class="search-box">
   <input id="search-input" type="search" placeholder="Search posts (semantic)…" autocomplete="off" />
-  <p id="search-status" class="muted" hidden></p>
-  <ul id="search-results"></ul>
+  <p id="search-status" hidden></p>
 </div>
 
 <style>
-  .search-box { margin-bottom: 2rem; }
+  .search-box {
+    position: relative;
+  }
   #search-input {
     width: 100%;
-    padding: 0.6rem 0.8rem;
-    border: 1px solid var(--border);
+    padding: 0.6rem 0.85rem;
+    border: 1px solid rgba(236, 239, 244, .15);
     border-radius: 8px;
-    background: var(--bg);
-    color: var(--fg);
-    font-size: 1rem;
+    background: rgba(0, 0, 0, .25);
+    color: var(--n6);
+    font-size: 0.9rem;
+    font-family: inherit;
   }
-  #search-results { list-style: none; padding: 0; margin: 0.5rem 0 0; }
-  #search-results li { padding: 0.5rem 0; border-bottom: 1px solid var(--border); }
-  #search-results a { font-weight: 600; }
+  #search-input::placeholder {
+    color: var(--n3);
+  }
+  #search-input:focus {
+    outline: none;
+    border-color: var(--n8);
+  }
+  #search-status:not([hidden]) {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    left: 0;
+    z-index: 30;
+    margin: 0;
+    padding: 0.4rem 0.7rem;
+    font-size: 0.75rem;
+    color: var(--n3);
+    background: linear-gradient(to bottom right, rgba(59, 66, 82, .96), rgba(46, 52, 64, .96));
+    border: 1px solid rgba(236, 239, 244, .12);
+    border-radius: 8px;
+  }
 </style>
 
 <script>
+  // Lives in the global nav, so it runs on every page — but only the index
+  // page has a `.posts-grid` to filter. Elsewhere, Enter jumps to the
+  // index with the query so the same filtering runs there.
   const input = document.getElementById('search-input');
-  const results = document.getElementById('search-results');
   const status = document.getElementById('search-status');
+  const grid = document.querySelector('.posts-grid');
 
   let indexPromise = null;
   let embedPromise = null;
@@ -60,6 +82,36 @@
     return dot; // embeddings are pre-normalized, so dot product == cosine similarity
   }
 
+  function showAllCards() {
+    if (!grid) return;
+    grid.querySelectorAll('.post-card').forEach((card) => { card.style.display = ''; });
+  }
+
+  // Keep cards within a margin of the best score for this query, rather
+  // than a fixed cutoff — relative to the best match, not absolute, since
+  // "relevant at all" varies a lot by query.
+  const SCORE_MARGIN = 0.15;
+
+  function applyFilter(scored) {
+    if (!grid) return;
+    if (scored.length === 0) {
+      grid.querySelectorAll('.post-card').forEach((card) => { card.style.display = 'none'; });
+      return;
+    }
+    const bestScore = scored[0].score;
+    const matchedUrls = new Set(
+      scored.filter((s) => s.score >= bestScore - SCORE_MARGIN).map((s) => s.item.url)
+    );
+    grid.querySelectorAll('.post-card').forEach((card) => {
+      card.style.display = matchedUrls.has(card.getAttribute('href')) ? '' : 'none';
+    });
+  }
+
+  function clearSearch() {
+    status.hidden = true;
+    showAllCards();
+  }
+
   let debounceTimer;
   input.addEventListener('focus', () => {
     getEmbedder().catch(() => {});
@@ -69,11 +121,27 @@
     clearTimeout(debounceTimer);
     const query = input.value.trim();
     if (!query) {
-      results.innerHTML = '';
-      status.hidden = true;
+      clearSearch();
       return;
     }
+    if (!grid) return; // nothing to filter on this page — wait for Enter
     debounceTimer = setTimeout(() => runSearch(query), 250);
+  });
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      input.value = '';
+      clearSearch();
+      input.blur();
+    } else if (e.key === 'Enter') {
+      const query = input.value.trim();
+      if (!query) return;
+      if (grid) {
+        clearTimeout(debounceTimer);
+        runSearch(query);
+      } else {
+        window.location.href = `/?q=${encodeURIComponent(query)}`;
+      }
+    }
   });
 
   async function runSearch(query) {
@@ -85,22 +153,28 @@
       const queryVec = Array.from(output.data);
       const scored = index.items
         .map((item) => ({ item, score: cosineSim(queryVec, item.embedding) }))
-        .sort((a, b) => b.score - a.score)
-        .slice(0, 5);
+        .sort((a, b) => b.score - a.score);
+      applyFilter(scored);
       status.hidden = true;
-      results.innerHTML = scored
-        .map(
-          ({ item }) => `
-          <li>
-            <a href="${item.url}">${item.title}</a>
-            <div class="muted">${item.excerpt}</div>
-          </li>`
-        )
-        .join('');
+      if (scored.length > 0 && scored[0].score < 0.1) {
+        status.hidden = false;
+        status.textContent = 'No close matches — showing closest anyway.';
+      }
     } catch (err) {
       status.hidden = false;
       status.textContent = 'Search is unavailable right now.';
-      results.innerHTML = '';
+    }
+  }
+
+  // Arriving from another page via Enter (?q=...): pre-fill and run.
+  if (grid) {
+    const q = new URLSearchParams(window.location.search).get('q');
+    if (q) {
+      input.value = q;
+      getEmbedder().catch(() => {});
+      getIndex()
+        .then(() => runSearch(q))
+        .catch(() => {});
     }
   }
 </script>

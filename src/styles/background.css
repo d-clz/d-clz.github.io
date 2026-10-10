@@ -1,0 +1,60 @@
+/* src/styles/background.css
+   Animated gradient backdrop — Nord's Aurora colors drifting over the Polar
+   Night base, so it reads as the Nord palette's own namesake: aurora over
+   arctic night. Anything layered on top must avoid an opaque background,
+   or it buries the blobs underneath. */
+
+body {
+  background-color: var(--n0);
+  overflow-x: hidden;
+}
+
+.liquid-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -10;
+  background: var(--n0);
+  overflow: hidden;
+}
+
+.liquid-bg span {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(5rem);
+  opacity: 0.35;
+  animation: blob-float 20s ease-in-out infinite;
+}
+
+.liquid-bg .blob-1 {
+  top: -10%;
+  left: -10%;
+  width: 50vw;
+  height: 50vw;
+  background: var(--n14); /* aurora green */
+}
+
+.liquid-bg .blob-2 {
+  bottom: -10%;
+  right: -10%;
+  width: 55vw;
+  height: 55vw;
+  background: var(--n10); /* frost deep blue */
+}
+
+.liquid-bg .blob-3 {
+  top: 45%;
+  left: 40%;
+  width: 30vw;
+  height: 30vw;
+  background: var(--n15); /* aurora purple */
+}
+
+@keyframes blob-float {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(30px, -50px) scale(1.2); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .liquid-bg span { animation: none; }
+}

@@ -1,0 +1,12 @@
+/* src/styles/panel.css
+   The shared "glass window" surface, recolored to Nord's Polar Night. */
+
+.glass-panel {
+  background: linear-gradient(to bottom right, rgba(59, 66, 82, .78), rgba(46, 52, 64, .7));
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(236, 239, 244, .1);
+  border-radius: 12px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, .5);
+  overflow: hidden;
+}

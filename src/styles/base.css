@@ -1,0 +1,45 @@
+/* src/styles/base.css — reset + global typography */
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  color: var(--n4);
+  font-family: 'JetBrains Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace;
+  line-height: 1.6;
+}
+
+.site-shell {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 4rem;
+}
+
+.site-nav {
+  border-radius: 12px;
+  margin-bottom: 2rem;
+}
+
+/* .glass-panel defaults to overflow:hidden for its rounded corners, but the
+   search dropdown needs to float outside the header's bounds. Two classes
+   for specificity, since import order alone wouldn't guarantee this wins.
+   backdrop-filter also makes the header its own stacking context, so the
+   dropdown's z-index only ranks it within the header — without lifting the
+   header itself above <main>, main's later-in-DOM content paints over it. */
+.glass-panel.site-nav {
+  position: relative;
+  z-index: 10;
+  overflow: visible;
+}
+
+.site-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+a { color: inherit; }

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import '../../styles/prose.css';
 import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -13,13 +14,18 @@ export async function getStaticPaths() {
 const { post } = Astro.props;
 const { Content } = await post.render();
 ---
-<BaseLayout title={post.data.title}>
-  <article>
-    <h1>{post.data.title}</h1>
-    <p class="muted">
-      {post.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
-      {post.data.tags.length > 0 && ' · ' + post.data.tags.join(', ')}
-    </p>
-    <Content />
+<BaseLayout title={post.data.title} activeNav="posts">
+  <article class="glass-panel">
+    <div class="prose">
+      <span class="post-path">~/posts/{post.slug}.md</span>
+      <h1>{post.data.title}</h1>
+      <p class="meta">
+        <span class="post-date">
+          {post.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+        </span>
+        {post.data.tags.map((tag) => <span class="post-tag">{tag}</span>)}
+      </p>
+      <Content />
+    </div>
   </article>
 </BaseLayout>
