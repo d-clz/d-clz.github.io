@@ -23,6 +23,18 @@
   font-size: 0.8rem;
 }
 
+/* Lighter and more transparent than the content panels (.post-card,
+   article) — those stay fairly opaque for dense text; this one holds just
+   a few short labels, so it can afford to read as actual glass over the
+   aurora blobs instead of a near-solid card. Two classes for specificity:
+   see the .glass-panel.site-nav comment in base.css for why that's needed. */
+.side-rail.glass-panel {
+  background: linear-gradient(to bottom right, rgba(59, 66, 82, .16), rgba(46, 52, 64, .08));
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-color: rgba(236, 239, 244, .18);
+}
+
 .rail-nav {
   display: grid;
   gap: 0.9rem;
