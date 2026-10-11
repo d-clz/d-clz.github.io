@@ -1,6 +1,7 @@
 ---
 import LiquidBackground from '../components/LiquidBackground.astro';
 import SearchBox from '../components/SearchBox.astro';
+import ThemeToggle from '../components/ThemeToggle.astro';
 import '../styles/palette.css';
 import '../styles/base.css';
 import '../styles/background.css';
@@ -19,10 +20,20 @@ const { title, description = 'Blog from my Self-Notes', activeNav, wide = false 
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <!-- Applied before paint so there's no flash of the wrong theme. -->
+    <script is:inline>
+      (function () {
+        try {
+          var saved = localStorage.getItem('site-theme');
+          var theme = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+          document.documentElement.setAttribute('data-theme', theme);
+        } catch (e) {}
+      })();
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title} · Dclz</title>
     <meta name="description" content={description} />
-    <meta name="color-scheme" content="dark" />
+    <meta name="color-scheme" content="dark light" />
     <link rel="icon" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -51,6 +62,7 @@ const { title, description = 'Blog from my Self-Notes', activeNav, wide = false 
             <a class={`win-action ${activeNav === 'posts' ? 'active' : ''}`} href="/">posts</a>
             <a class={`win-action ${activeNav === 'projects' ? 'active' : ''}`} href="/projects/">projects</a>
             <a class="win-action" href="https://d-clz.github.io/portfolio/">portfolio ↗</a>
+            <ThemeToggle />
           </nav>
         </div>
         <SearchBox />

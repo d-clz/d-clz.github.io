@@ -8,7 +8,7 @@ html, body {
 }
 
 body {
-  color: var(--n4);
+  color: var(--fg);
   font-family: 'JetBrains Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace;
   line-height: 1.6;
 }

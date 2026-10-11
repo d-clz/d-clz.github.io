@@ -1,29 +1,53 @@
 /* src/styles/palette.css
-   Nord (arctic-ice-theme, Sven Greb) — the canonical, well-documented
-   16-color Nord palette, used as plain CSS custom properties. */
+   Poimandres — a minimal, soft-pastel dark theme (also one of Shiki's
+   bundled syntax themes, used for code blocks in astro.config.mjs).
+   Poimandres has no official light companion, so the light variant below
+   is derived in-house: same three accent hues (cyan/blue/pink), darkened
+   and resaturated for contrast on a light background — not a canonical
+   source like the dark side is.
+
+   RGB-triplet custom properties (e.g. --fg-rgb) exist alongside their hex
+   counterparts so call sites can do rgba(var(--fg-rgb), .1) for
+   variable-opacity borders/overlays without hardcoding a color twice. */
 
 :root {
-  /* Polar Night — dark base */
-  --n0: #2e3440;
-  --n1: #3b4252;
-  --n2: #434c5e;
-  --n3: #4c566a;
+  color-scheme: dark;
 
-  /* Snow Storm — light text */
-  --n4: #d8dee9;
-  --n5: #e5e9f0;
-  --n6: #eceff4;
+  --bg-rgb: 27, 30, 40;       /* #1b1e28 */
+  --bg: rgb(var(--bg-rgb));
 
-  /* Frost — primary accents */
-  --n7: #8fbcbb;
-  --n8: #88c0d0;
-  --n9: #81a1c1;
-  --n10: #5e81ac;
+  --panel1-rgb: 48, 51, 64;   /* #303340 — elevated panel tone */
+  --panel2-rgb: 27, 30, 40;   /* #1b1e28 */
 
-  /* Aurora — highlight accents */
-  --n11: #bf616a; /* red */
-  --n12: #d08770; /* orange */
-  --n13: #ebcb8b; /* yellow */
-  --n14: #a3be8c; /* green */
-  --n15: #b48ead; /* purple */
+  --fg-rgb: 166, 172, 205;    /* #a6accd — body text, also used for low-alpha borders */
+  --fg: rgb(var(--fg-rgb));
+  --fg-strong: #e4f0fb;
+  --muted: #767c9d;
+
+  --accent-rgb: 93, 228, 199;   /* #5de4c7 — cyan, primary accent */
+  --accent: rgb(var(--accent-rgb));
+  --accent2-rgb: 137, 221, 255; /* #89ddff — blue, secondary accent */
+  --accent2: rgb(var(--accent2-rgb));
+  --accent3-rgb: 208, 103, 157; /* #d0679d — pink, tertiary accent */
+  --accent3: rgb(var(--accent3-rgb));
+
+  --input-bg: rgba(0, 0, 0, .25);
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  --bg-rgb: 244, 244, 248;    /* #f4f4f8 */
+  --panel1-rgb: 255, 255, 255;
+  --panel2-rgb: 233, 233, 242;
+
+  --fg-rgb: 42, 45, 58;       /* #2a2d3a */
+  --fg-strong: #14151c;
+  --muted: #5d6080;
+
+  --accent-rgb: 15, 157, 130;   /* darkened cyan for contrast on light bg */
+  --accent2-rgb: 31, 122, 173;  /* darkened blue */
+  --accent3-rgb: 168, 56, 107;  /* darkened pink */
+
+  --input-bg: rgba(255, 255, 255, .6);
 }

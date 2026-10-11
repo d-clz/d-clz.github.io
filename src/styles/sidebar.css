@@ -19,33 +19,34 @@
   position: sticky;
   top: 1.5rem;
   padding: 1.25rem 1.4rem;
-  color: var(--n4);
+  color: var(--fg);
   font-size: 0.8rem;
 }
 
 /* Lighter and more transparent than the content panels (.post-card,
    article) — those stay fairly opaque for dense text; this one holds just
    a few short labels, so it can afford to read as actual glass over the
-   aurora blobs instead of a near-solid card. Two classes for specificity:
-   see the .glass-panel.site-nav comment in base.css for why that's needed. */
+   background blobs instead of a near-solid card. Two classes for
+   specificity: see the .glass-panel.site-nav comment in base.css for why
+   that's needed. */
 .side-rail.glass-panel {
-  background: linear-gradient(to bottom right, rgba(59, 66, 82, .16), rgba(46, 52, 64, .08));
+  background: linear-gradient(to bottom right, rgba(var(--panel1-rgb), .16), rgba(var(--panel2-rgb), .08));
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border-color: rgba(236, 239, 244, .18);
+  border-color: rgba(var(--fg-rgb), .18);
 }
 
 .rail-nav {
   display: grid;
   gap: 0.9rem;
   margin-left: 5px;
-  border-left: 2px solid rgba(236, 239, 244, .2);
+  border-left: 2px solid rgba(var(--fg-rgb), .2);
 }
 
 .rail-nav a {
   position: relative;
   padding-left: 1.1rem;
-  color: var(--n4);
+  color: var(--fg);
   line-height: 1.35;
   text-decoration: none;
 }
@@ -58,23 +59,23 @@
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  border: 2px solid rgba(236, 239, 244, .5);
-  background: var(--n0);
+  border: 2px solid rgba(var(--fg-rgb), .5);
+  background: var(--bg);
   transition: border-color 0.15s ease, background 0.15s ease;
 }
 
 .rail-nav a:hover,
 .rail-nav a[aria-current="true"] {
-  color: var(--n8);
+  color: var(--accent);
 }
 
 .rail-nav a:hover::before {
-  border-color: var(--n8);
+  border-color: var(--accent);
 }
 
 .rail-nav a[aria-current="true"]::before {
-  border-color: var(--n8);
-  background: var(--n8);
+  border-color: var(--accent);
+  background: var(--accent);
 }
 
 @media (max-width: 1000px) {

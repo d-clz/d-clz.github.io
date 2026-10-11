@@ -1,5 +1,5 @@
 /* src/styles/cards.css
-   Post-listing grid, recolored to Nord. */
+   Post-listing grid. */
 
 .posts-grid {
   display: grid;
@@ -18,14 +18,14 @@
 
 .post-card:hover {
   transform: translateY(-4px);
-  border-color: var(--n8);
+  border-color: var(--accent);
   box-shadow: 0 30px 60px -15px rgba(0, 0, 0, .6);
   text-decoration: none;
 }
 
 .post-card .post-path {
   font-size: 0.7rem;
-  color: var(--n3);
+  color: var(--muted);
   margin-bottom: 0.75rem;
 }
 
@@ -33,13 +33,13 @@
   margin: 0 0 0.6rem;
   font-size: 1.2rem;
   line-height: 1.35;
-  color: var(--n6);
+  color: var(--fg-strong);
 }
 
 .post-card .post-excerpt {
   flex-grow: 1;
   margin: 0 0 1rem;
-  color: var(--n4);
+  color: var(--fg);
   font-size: 0.9rem;
   line-height: 1.6;
 }
@@ -53,11 +53,11 @@
 }
 
 .post-card .post-date {
-  color: var(--n13);
+  color: var(--accent2);
 }
 
 .post-card .post-tag {
-  color: var(--n14);
+  color: var(--accent);
 }
 
 .post-card .post-tag::before {
@@ -70,13 +70,13 @@
   gap: 1rem;
   margin-top: 1rem;
   padding-top: 1rem;
-  border-top: 1px solid rgba(236, 239, 244, .08);
+  border-top: 1px solid rgba(var(--fg-rgb), .08);
 }
 
 .project-links a {
   font-size: 0.8rem;
   font-weight: 600;
-  color: var(--n8);
+  color: var(--accent);
   text-decoration: none;
 }
 

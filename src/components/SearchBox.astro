@@ -12,19 +12,19 @@
   #search-input {
     width: 100%;
     padding: 0.6rem 0.85rem;
-    border: 1px solid rgba(236, 239, 244, .15);
+    border: 1px solid rgba(var(--fg-rgb), .15);
     border-radius: 8px;
-    background: rgba(0, 0, 0, .25);
-    color: var(--n6);
+    background: var(--input-bg);
+    color: var(--fg-strong);
     font-size: 0.9rem;
     font-family: inherit;
   }
   #search-input::placeholder {
-    color: var(--n3);
+    color: var(--muted);
   }
   #search-input:focus {
     outline: none;
-    border-color: var(--n8);
+    border-color: var(--accent);
   }
   #search-status:not([hidden]) {
     position: absolute;
@@ -34,9 +34,9 @@
     margin: 0;
     padding: 0.4rem 0.7rem;
     font-size: 0.75rem;
-    color: var(--n3);
-    background: linear-gradient(to bottom right, rgba(59, 66, 82, .96), rgba(46, 52, 64, .96));
-    border: 1px solid rgba(236, 239, 244, .12);
+    color: var(--muted);
+    background: linear-gradient(to bottom right, rgba(var(--panel1-rgb), .96), rgba(var(--panel2-rgb), .96));
+    border: 1px solid rgba(var(--fg-rgb), .12);
     border-radius: 8px;
   }
 </style>
