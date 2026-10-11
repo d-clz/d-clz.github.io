@@ -1,13 +1,13 @@
 /* src/styles/window.css
-   macOS-style window chrome, recolored to Nord. */
+   macOS-style window chrome. */
 
 .win-header {
   display: flex;
   flex-direction: column;
   gap: 0.85rem;
   padding: 1rem 1.25rem;
-  border-bottom: 1px solid rgba(236, 239, 244, 0.1);
-  background: rgba(236, 239, 244, 0.05);
+  border-bottom: 1px solid rgba(var(--fg-rgb), .1);
+  background: rgba(var(--fg-rgb), .05);
   user-select: none;
   flex-shrink: 0;
 }
@@ -46,9 +46,11 @@
   box-shadow: 0 0 8px currentColor;
 }
 
-.window-controls .red { background: var(--n11); border: 1px solid var(--n11); color: var(--n11); }
-.window-controls .yellow { background: var(--n13); border: 1px solid var(--n13); color: var(--n13); }
-.window-controls .green { background: var(--n14); border: 1px solid var(--n14); color: var(--n14); }
+/* Authentic macOS traffic-light colors — fixed regardless of theme, since
+   they're a universal system-chrome signifier, not a design accent. */
+.window-controls .red { background: #ff5f56; border: 1px solid #ff5f56; color: #ff5f56; }
+.window-controls .yellow { background: #ffbd2e; border: 1px solid #ffbd2e; color: #ffbd2e; }
+.window-controls .green { background: #27c93f; border: 1px solid #27c93f; color: #27c93f; }
 
 .win-title {
   display: flex;
@@ -56,10 +58,10 @@
   gap: 0.5rem;
   padding: 0.25rem 0.75rem;
   border-radius: 0.375rem;
-  background: rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(236, 239, 244, 0.05);
+  background: rgba(var(--bg-rgb), .2);
+  border: 1px solid rgba(var(--fg-rgb), .05);
   font-size: 0.75rem;
-  color: var(--n4);
+  color: var(--fg);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -69,26 +71,26 @@
 /* Optional trailing content in the header (e.g. nav links, a "← posts" action). */
 .win-action {
   font-size: 0.75rem;
-  color: rgba(236, 239, 244, 0.6);
+  color: rgba(var(--fg-rgb), .6);
   text-decoration: none;
   padding: 0.25rem 0.75rem;
   border-radius: 0.375rem;
-  border: 1px solid rgba(236, 239, 244, 0.1);
+  border: 1px solid rgba(var(--fg-rgb), .1);
   white-space: nowrap;
   transition: color 0.2s, border-color 0.2s, background 0.2s;
 }
 
 .win-action:hover {
-  color: var(--n6);
-  border-color: var(--n8);
-  background: rgba(136, 192, 208, 0.1);
+  color: var(--fg-strong);
+  border-color: var(--accent);
+  background: rgba(var(--accent-rgb), 0.1);
   text-decoration: none;
 }
 
 .win-action.active {
-  color: var(--n0);
-  border-color: var(--n8);
-  background: var(--n8);
+  color: var(--bg);
+  border-color: var(--accent);
+  background: var(--accent);
 }
 
 @media (max-width: 576px) {

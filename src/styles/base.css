@@ -8,7 +8,7 @@ html, body {
 }
 
 body {
-  color: var(--n4);
+  color: var(--fg);
   font-family: 'JetBrains Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace;
   line-height: 1.6;
 }
@@ -23,6 +23,18 @@ body {
    room so the main content column doesn't get squeezed. */
 .site-shell--wide {
   max-width: 1150px;
+}
+
+/* Large screens get 150% of the base widths — small/medium viewports are
+   unaffected since the max-width only matters once it's actually reached. */
+@media (min-width: 1440px) {
+  .site-shell {
+    max-width: 1350px;
+  }
+
+  .site-shell--wide {
+    max-width: 1725px;
+  }
 }
 
 .site-nav {

@@ -1,11 +1,14 @@
 /* src/styles/panel.css
-   The shared "glass window" surface, recolored to Nord's Polar Night. */
+   The shared "glass window" surface — same deeply-frosted single-tone recipe
+   as the portfolio's terminal window (/details), so both sites' glass reads
+   the same: more see-through than a gradient fill, with a heavier blur to
+   compensate. */
 
 .glass-panel {
-  background: linear-gradient(to bottom right, rgba(59, 66, 82, .78), rgba(46, 52, 64, .7));
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(236, 239, 244, .1);
+  background: rgba(var(--panel1-rgb), .5);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  border: 1px solid rgba(var(--fg-rgb), .12);
   border-radius: 12px;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, .5);
   overflow: hidden;
