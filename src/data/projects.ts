@@ -14,18 +14,4 @@ export const PROJECTS: Project[] = [
     tech: ['Go', 'Bubble Tea', 'x/crypto/ssh', 'pkg/sftp'],
     github: 'https://github.com/d-clz/dterm',
   },
-  {
-    title: 'portfolio',
-    tagline: 'Interactive terminal/zsh-styled personal site',
-    tech: ['Astro'],
-    github: 'https://github.com/d-clz/portfolio',
-    url: 'https://d-clz.github.io/portfolio/',
-  },
-  {
-    title: 'd-clz.github.io',
-    tagline: 'This blog — static semantic search over posts, Nord palette',
-    tech: ['Astro', 'transformers.js'],
-    github: 'https://github.com/d-clz/d-clz.github.io',
-    url: 'https://d-clz.github.io/',
-  },
 ];

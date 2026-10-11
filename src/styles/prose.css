@@ -4,6 +4,8 @@
    don't override .prose pre/code colors, only spacing/layout. */
 
 .prose {
+  max-width: 75ch;
+  margin: 0 auto;
   padding: 2rem 2.25rem 2.5rem;
   color: var(--n4);
   font-size: 1rem;
