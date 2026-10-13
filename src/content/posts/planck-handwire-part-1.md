@@ -34,7 +34,7 @@ The project did not start with an order. It started with a shelf.
 ![Choc v2 switches and the Technik_0 acrylic case, before anything was built](../../assets/planck/parts.jpg)
 -->
 
-A set of Choc v2 switches had been sitting in storage for a few years. So had a Boardsource Technik_0 acrylic case — [SHOUTOUT: friend who gave me the case, fill in]. Neither had been bought for this. They were leftovers from intentions that never became builds, the kind of parts you move from one drawer to another and feel vaguely guilty about every time.
+A set of Choc v2 switches had been sitting in storage for a few years. So had a Boardsource Technik_0 acrylic case — a gift from Long, an old friend of mine. Neither had been bought for this. They were leftovers from intentions that never became builds, the kind of parts you move from one drawer to another and feel vaguely guilty about every time.
 
 Put those two next to a problem that needs solving and the project assembles itself. Choc v2, Technik_0, 4x12, wireless, mine.
 
