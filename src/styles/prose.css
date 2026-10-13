@@ -104,8 +104,12 @@
   text-align: left;
 }
 
+/* height:auto is required alongside max-width — Astro's image pipeline sets
+   explicit width/height attributes on the <img>, and without it the browser
+   keeps that literal height when CSS shrinks the width, stretching the image. */
 .prose img {
   max-width: 100%;
+  height: auto;
   border-radius: 8px;
   border: 1px solid rgba(var(--fg-rgb), .1);
 }
