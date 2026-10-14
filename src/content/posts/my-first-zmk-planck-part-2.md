@@ -1,92 +1,66 @@
 ---
-title: "My first ZMK Planck, Part 2 — The bar"
+title: "My first ZMK Planck, Part 2 — The alignment"
 date: 2026-09-22
 categories: ["builds", "keyboards"]
 tags: ["planck", "handwire", "zmk", "choc-v2", "nrf52840", "pogo-pins"]
-excerpt: "Sixteen matrix signals have to cross from a passive keyboard into a controller bar you can pull off. Part 2 is that connector: the options, the pin map with zero spare pins, and the decision I was advised against and made anyway."
+excerpt: "Sixteen signals have to cross from a passive keyboard into a bar you can pull off. Part 2 is the connector argument, the two holes I cut, and a matrix that works no matter what controller shows up."
 ---
 
 [Part 1](/posts/my-first-zmk-planck-part-1/) ended on an idea: the keyboard holds nothing but the matrix, and the controller and battery live on a detachable bar along the rear edge.
 
-That sentence hides all the work. A passive matrix is useless on its own — it only becomes a keyboard when sixteen signals reach a controller. So the bar is not a mounting bracket. It is a connector problem wearing a bar costume, and it is the part of this build I spent the longest arguing with myself about.
+That sentence hides all the work. A passive matrix only becomes a keyboard when sixteen signals reach a controller — so the bar is not a mounting bracket, it is a connector problem wearing a bar costume.
 
-## Sixteen, and not one more
+## Sixteen, and a joint that comes apart
 
-The constraint from Part 1, restated, because everything here follows from it:
+4 rows + 12 columns = 16 signals, and the controller has exactly 16 usable GPIO. No spare, no ground return, no detect pin.
 
-4 rows + 12 columns = 16 signals. The controller has exactly 16 usable GPIO. No spares, no ground return across the joint, no detect pin, no I2C.
+And the joint has to come apart — that is the whole point of the bar. So those sixteen make and break contact by hand, repeatedly, and have to be right every time.
 
-And the joint comes apart. That is the entire point of the bar — swap controllers, pull it off for travel, replace a dead nRF52840 without desoldering a matrix. So those sixteen have to make and break contact repeatedly, by hand, and be right every time.
+Matrix lines are unforgiving in one specific way. They are high-impedance with internal pull-ups, so contact *resistance* costs nothing. What kills you is an intermittent *open*: one pin that loses contact under flex gives you a column that dies when you press on the case and comes back when you let go. On a handwire that looks exactly like a bad solder joint, and you will go hunting through 48 of your own joints before you suspect the connector.
 
-A matrix is unforgiving about this in a specific way. Row and column lines are high-impedance with internal pull-ups, so a little contact *resistance* costs nothing — you are not pushing current through them. What kills you is an intermittent *open*. One pin that loses contact under flex gives you a column that dies when you press on the case and returns when you let go. That is the worst bug class on a handwire, because it looks exactly like a bad solder joint somewhere in a matrix you built by hand — and you will go looking there first.
+## Why that way, and why not the others
 
-## No power across the joint
+**Bonded — sixteen wires, no connector.** Most reliable thing available. Rejected: it throws away the reason the bar exists. If the controller dies, you desolder sixteen wires.
 
-One decision was easy, and I want to flag it because it is the one I would keep in any future version.
+**One 2x8 header in the centre.** On paper the best option — keyed, retained, self-aligning, one alignment datum instead of two. Rejected on looks. The factory opening sits at the right rear; a centre connector means cutting a fresh hole mid-edge while the original does nothing. On frosted translucent acrylic there is no back side to hide that on.
 
-**Only matrix signals cross the connector. No battery, no VCC, no ground rail.** The battery lives on the bar, next to the controller it powers. Nothing on the keyboard side is energised at all.
+**Two 1x8 headers at the ends.** Shorter runs, still keyed and retained, but two connectors to mate and you have to push them together.
 
-If power crossed that joint, every reseat would be a chance to short a cell through a pogo pin that landed half-on, or to brown out the controller mid-write. Matrix lines have no such failure mode — a bad contact there is a missing keypress, not a thermal event. Keeping the passive side genuinely passive turns the worst case from "damage" into "annoying".
+**Two 1x8 magnetic pogo connectors at the ends.** Quick-release, no insertion force. Also the riskiest thing on the list, and I was told so in plain terms:
 
-**Decision: signals only.**
+- **Tolerance stack-up.** Two connectors ~250 mm apart seating at once, on a hand-built bar, against acrylic that bows. Magnets self-align over maybe ±0.3 mm — easy to end up with one home and the other marginal.
+- **No wipe, no retention.** Pogo tips oxidise, and a magnet joint has no wiping action and nothing holding it but the magnet.
+- **Magnets next to a radio.** Neodymium along the rear edge detunes the chip antenna. Keep 10–15 mm clear or lose range.
 
-## The options, and the advice I ignored
+All three are correct. None of them is a cost I mind paying.
 
-Four ways to get sixteen lines across a removable joint.
+The alignment problem *is* the exercise — I am already betting the build on placing things accurately by hand, so a connector that punishes sloppiness just puts a pass/fail light on it. The wear is real, but every smartwatch I own charges through pogo pins and lives on a wrist, outdoors, in sweat; this one sits on a desk mat under a roof, and when the contacts eventually go they are a consumable. And the range: the link is half a metre to the PC, less to a dongle in the same machine, against a spec written for tens of metres. Lose half of it and I am still an order of magnitude clear.
 
-**Bonded.** Run sixteen wires straight from the matrix to the bar, no connector at all. The most reliable thing on this list, and it throws away the entire reason the bar exists. If the controller dies — and spoiler for Part 4, it did — you are desoldering sixteen wires. Out.
+So I bought the pogo. The trade-offs land somewhere I do not care about.
 
-**One 2x8 pin header in the centre.** On paper, the best option here. Standard part, keyed, self-aligning, real retention force, hundreds of mating cycles. One connector means one alignment datum, so there is no stack-up to get wrong. The only technical cost is that all sixteen wires converge on a single point mid-case, which on a handwire is a bundle you will want to sleeve.
+**The one thing I would not trade is what crosses the joint: signals only. No battery, no VCC, no ground rail.** The cell lives on the bar beside the controller it powers, and nothing on the keyboard side is energised at all. Push power through a magnetic connector and every reseat is a chance to short a cell across a pin that landed half-on, or brown out the controller mid-write. A bad contact on a matrix line is a missing keypress. That is the whole difference between "annoying" and "damage," and it is the one line in this design I would keep in any version of it.
 
-It lost for a reason that is not technical at all. The case already has an opening at the right rear — it is where the controller's port was always meant to come out, and it is where mine comes out now. Putting the connector in the centre means cutting a *second* opening into the middle of the rear edge while the original sits there doing nothing.
+## Two holes, and then the case is finished
 
-Two holes in a rear edge, one of them pointless, in a case I was given. I could not do it. There is no engineering in that sentence and I will not dress it up as any — the centre header was the better connector and I rejected it over the look of a piece of acrylic.
+![The finished plate — factory opening extended at one end, a matching slot cut at the other, both pogo blocks mounted](../../assets/planck/pogo-mounted.jpg)
 
-![The case with both pogo connectors mounted — two 1x8 blocks at opposite ends of the rear edge, pins facing up](../../assets/planck/pogo-mounted.jpg)
+Two cuts in the end. The factory opening at the right rear got *extended* to take the first connector alongside the port it was always for. The second is new, cut at the opposite end to match.
 
-Look at the plate and you can see why that mattered more than it should. The acrylic is frosted but translucent — there is no back side to hide anything on. Every cut, every brass insert, every standoff reads straight through the material from either direction. On an opaque case a spare hole is something you see only when you turn it over. On this one it is permanent furniture.
+That is why the centre header lost and this did not. The objection was never "no new holes" — it was leaving the original hole orphaned while cutting a redundant one somewhere else. Extend one, mirror it at the far end, and the rear edge reads as a pair rather than as one useful opening and one mistake.
 
-The other thing in that photo was deliberate, and it is the part of the design I had the clearest picture of before I built any of it.
+The corner placement was deliberate too, and it is the part of the design I had the clearest picture of before building any of it. Both connectors sit hard against the corners, where the side walls meet the plate and the acrylic is stiffest. A snap-on bar lives or dies on the panel it snaps to holding still, and the centre of a 250 mm span is the one place guaranteed not to. Two datums are worse than one in principle — but mine sit where the case barely moves, and the single-datum version would sit where it moves most.
 
-Both connectors sit at the far ends of the edge, hard against the corners, where the side walls meet the plate and the acrylic is at its stiffest. That is not where they landed. That is where I put them. A snap-on bar lives or dies on the panel it snaps to holding still, and the centre of a 250 mm acrylic span is the one place guaranteed not to — maximum deflection, with the whole plate free to flex either side of it. Mount your one critical alignment feature there and every press on the keyboard works against it.
+There is no drawing of any of this. The whole mechanism lived in my head, the way these things always do for me, and the first time it existed outside my skull was when I started cutting. Lovely right up until something does not fit and there is no document to check your intent against. That bill comes due in Part 5.
 
-So the "two connectors means two chances to misalign" objection cuts both ways. Two datums are worse than one in principle. But mine sit where the case barely moves, and the one-datum version would sit where it moves most.
+With the plate cut and both connectors mounted, the case is done. Nothing else will ever be modified. Everything after this is wire.
 
-I should be honest about what "planned" means here, though. There is no sketch of this. No drawing, no notes, no calculation — the whole mechanism lived in my head, the way these things always do for me, and the first time any of it existed outside my skull was when I started cutting. Which is a lovely way to work, right up until something does not fit and there is no document to check your intent against. That bill comes due in Part 5.
+## The matrix
 
-**Two 1x8 pin headers at the ends.** Shorter wire runs, keyed, retained — but now two connectors have to mate simultaneously, and you have to push them together.
+Sixteen signals, two connectors, eight each — each connector landing on the controller pad rail nearest it.
 
-**Two 1x8 magnetic pogo connectors at the ends.** Quick-release, no insertion force, satisfying. Also the riskiest option on the list.
+The obvious 8/8 split is wrong, though, because of what the right rail offers. Two of those pads are the nRF52840's NFC antenna pins. They work as GPIO, but only with a build-time flag that takes them off the NFC peripheral, and they carry a reputation for odd behaviour. On a board where a flaky column was already going to be hard to localise, I was not spending credibility on two pins with an asterisk.
 
-I got told, in plain terms, not to do the last one. Three objections, all technically correct. I want to go through them one at a time, because having an answer to an objection is not the same as the objection being wrong.
-
-**"Tolerance stack-up."** Two connectors roughly 250 mm apart both have to seat at once, on a hand-built bar, against a laser-cut acrylic case that bows. Magnets self-align over maybe ±0.3 mm. Across that span you can easily end up with one connector fully home and the other with two or three pins marginal.
-
-All true. It is also, precisely, the thing I am here to do. The whole project is a handwire — I am already betting the build on whether I can place things accurately by hand. A connector pair that punishes sloppy alignment is not an obstacle to that, it *is* that, with a pass/fail light on it. If I cannot land two connectors on one edge, better to find out on a keyboard I built for fun than to assume I can.
-
-**"No wipe, no retention."** Pogo tips oxidise and collect pocket lint, and a magnet-held joint has no wiping action to clean the contact and nothing holding it but the magnet.
-
-Also true, and also how every smartwatch I own charges. I have a few. None of them lasted five years on their original contacts — but they live on a wrist, outdoors, through sweat and rain and whatever a day does to them. This one sits on a desk mat, indoors, in a room with a roof. Same part, a fraction of the abuse. And when the contacts do eventually go, pogo connectors are a consumable: unsolder, replace, carry on.
-
-**"Magnets next to a radio."** The controller's chip antenna is at the USB end. Neodymium and steel pole pieces along the rear edge will detune it; keep 10–15 mm clear or accept worse BLE range.
-
-True again, and here I genuinely do not care. Worse than what? The link is desk mat to PC — call it half a metre. In dongle mode it is keyboard to a dongle plugged into the same machine, closer still. BLE is specified for tens of metres. If detuning costs me half my range I am still an order of magnitude inside what this link needs. That is margin I am happy to spend on a connector I wanted.
-
-So: not a reckless decision, but not a defensible one either. Every objection survives my answer to it. What my answers really say is that the costs land somewhere I do not mind paying — a desk keyboard, a replaceable part, a short link, and a tolerance problem I actively wanted to attempt.
-
-**Decision: two 1x8 magnetic pogo connectors, 2.54 mm pitch, one at each end of the rear edge.**
-
-If you are building this to go in a bag, or for someone else to rely on, use the pin header. Those three objections do not go away just because mine happens to sit still.
-
-## The pin map, and the two pins I would not touch
-
-Sixteen signals, two connectors, eight each. That split is not arbitrary — each connector wants to land on the controller pad rail nearest it, so the obvious mapping is 8 to the left rail and 8 to the right.
-
-The obvious mapping is wrong, because of which pins the right rail actually offers.
-
-On the nRF52840, two of those pads are the NFC antenna pins. They work as GPIO, but only with a build-time flag that takes them away from the NFC peripheral, and they carry a reputation for odd behaviour. On a board where a flaky column was already going to be hard to localise, I was not spending credibility on two pins with an asterisk next to them.
-
-So: **10 pins on the left rail, 6 on the right**, skipping the NFC pads entirely. The price is two wires that cross the width of the bar to reach the far rail. Two crossings is cheap. Debugging an NFC pin is not.
+So: **10 pins on the left rail, 6 on the right**, NFC pads untouched. The price is two wires crossing the width of the bar to reach the far rail. Two crossings is cheap; debugging an NFC pin is not.
 
 | Connector | Carries | Lands on |
 | --- | --- | --- |
@@ -94,17 +68,27 @@ So: **10 pins on the left rail, 6 on the right**, skipping the NFC pads entirely
 | B (right end) | C7, C8, C9, C10, R3, R4 | right rail |
 | B (left end) | C11, C12 | D9, D8 — crossing to the left rail |
 
-## Wiring it
+### Diode direction
 
-With the connectors mounted and the map settled, the matrix is just work. Diodes at every switch, columns and rows in white, and then sixteen runs in red out to the two connector blocks.
+A diode at every switch, and all 48 pointing the same way. Which way is a free choice, as long as you tell the firmware the same story you told the soldering iron — ZMK calls it `diode-direction` and takes `col2row` or `row2col` ([kscan configuration](https://zmk.dev/docs/config/kscan)).
 
-![Mid-build — diode legs still standing where the next column has not been run yet](../../assets/planck/matrix-wip.jpg)
+I wired **col2row**.
 
-![Close-up of the matrix: diode at each switch, white grid wires, red signal runs heading for the connector](../../assets/planck/matrix-detail.jpg)
+> **Note for the firmware phase:** `diode-direction = "col2row"`. This is a one-line property in the shield's devicetree, and getting it backwards produces a board that scans cleanly and reports the wrong keys — or nothing. Write it down now. Part 3 needs it, and the matrix is about to become unreachable under a plate.
 
-The red wires in these photos are the subject of this entire post. Everything white is internal — it only has to reach the next switch. The red ones are the sixteen that leave, and every one of them ends at a pogo pin that will be pulled apart and pushed back together for as long as this keyboard exists.
+### Two kinds of wire, for two different reasons
 
-![The corner where the signal runs converge on the rear connector block](../../assets/planck/matrix-connector.jpg)
+![Mid-build — diode legs still standing where the next run has not been made](../../assets/planck/matrix-wip.jpg)
+
+The white wire is the matrix grid, and it is routed for looks. The case is frosted acrylic over a black plate, which means the underside of this keyboard is *visible* — not in an exploded-photo sense, in an it-is-on-my-desk sense. So the crossings are deliberate: evenly spaced, square to the plate, white against black so the grid reads cleanly from below. It is a keyboard you can see the inside of, so the inside gets laid out like something meant to be seen.
+
+![Close-up — diode at each switch, white grid, red runs heading for the connector](../../assets/planck/matrix-detail.jpg)
+
+The red is doing a completely different job. It is single-core brass in a ceramic wrap: bends easily by hand, then stays exactly where you bent it. Those are the sixteen runs that leave the matrix, and because the wire holds its shape it does more than carry signal — it is stiff enough to hold the pogo connector in position at the edge.
+
+![The corner where the signal runs converge on the connector block](../../assets/planck/matrix-connector.jpg)
+
+That matters more than it sounds. Pulling the bar off means pulling against magnets, and the connector on the keyboard side has to not move when you do. Its own wiring braces it. Sixteen stiff wires converging on a block, routed to resist the one direction the magnets pull.
 
 ## Sealed
 
@@ -112,16 +96,14 @@ The red wires in these photos are the subject of this entire post. Everything wh
 
 That is the end of Part 2, and it is a strange place to stop, because look at what is not in that photo.
 
-There is no controller. Not an empty socket waiting for one — nothing. The case is modified, the connectors are mounted, all 48 keys are wired and verified, and the board in front of me is complete in the only sense that matters: nothing else needs to happen inside it, ever.
+There is no controller. Not an empty socket waiting for one — nothing. The case is cut, the connectors are mounted, all 48 keys are wired and verified, and the board is complete in the only sense that matters: nothing else needs to happen inside it, ever.
 
-And I had still not chosen a controller.
+And I still had not chosen a controller.
 
-That was not procrastination. It was the whole point, and I only realised how much I meant it later. The matrix is not committed to a *board*. It is committed to a *pinout convention* — the pro micro pad layout, which half the hobby builds against and which ZMK addresses through aliases rather than hardware names. Any board that speaks that layout will do. I did not decide what the controller is. I decided that it would not matter.
+That was not procrastination. The matrix is not committed to a *board*, it is committed to a *pinout convention* — the pro micro pad layout, which half the hobby builds against and which ZMK addresses through aliases rather than hardware names. Any board that speaks that layout will do. I did not decide what the controller is. I decided that it would not matter.
 
-Which is a nice thing to say in a blog post, and an even better thing to have actually done, because in Part 4 I throw two controllers in the bin and the matrix never knows.
-
-Next, though, is the firmware: a shield named `planck_choc`, a repo that holds two keyboards at once, and a Docker container that builds Zephyr on a Windows machine.
+Which is a nice thing to say in a blog post and a better thing to have actually done, because in Part 4 I throw two controllers in the bin and the matrix never notices.
 
 ---
 
-*Part 3 — the ZMK shield, the module-style repo layout, and getting a local build out of a container.*
+*Part 3 — the `planck_choc` shield, a repo holding two keyboards at once, and building Zephyr in a container on Windows.*
