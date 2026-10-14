@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import '../../styles/prose.css';
+import '../../styles/cards.css';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await project.render();
+---
+<BaseLayout title={project.data.title} activeNav="projects">
+  <article class="glass-panel">
+    <div class="prose">
+      <span class="post-path">~/projects/{project.slug}</span>
+      <h1>{project.data.title}</h1>
+      <p class="meta">
+        {project.data.tech.map((t) => <span class="post-tag">{t}</span>)}
+      </p>
+      <Content />
+      <div class="project-links">
+        <a href={project.data.github} target="_blank" rel="noopener">github ↗</a>
+        {project.data.url && <a href={project.data.url} target="_blank" rel="noopener">visit ↗</a>}
+      </div>
+    </div>
+  </article>
+</BaseLayout>

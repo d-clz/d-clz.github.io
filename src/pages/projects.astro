@@ -1,23 +1,21 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import '../styles/cards.css';
-import { PROJECTS } from '../data/projects';
+import { getCollection } from 'astro:content';
+
+const projects = await getCollection('projects');
 ---
 <BaseLayout title="Projects" activeNav="projects">
   <div class="posts-grid">
-    {PROJECTS.map((project) => (
-      <div class="post-card glass-panel">
-        <span class="post-path">~/projects/{project.title}</span>
-        <h2>{project.title}</h2>
-        <p class="post-excerpt">{project.tagline}</p>
+    {projects.map((project) => (
+      <a class="post-card glass-panel" href={`/projects/${project.slug}/`}>
+        <span class="post-path">~/projects/{project.slug}</span>
+        <h2>{project.data.title}</h2>
+        <p class="post-excerpt">{project.data.tagline}</p>
         <div class="post-meta">
-          {project.tech.map((t) => <span class="post-tag">{t}</span>)}
+          {project.data.tech.map((t) => <span class="post-tag">{t}</span>)}
         </div>
-        <div class="project-links">
-          <a href={project.github} target="_blank" rel="noopener">github ↗</a>
-          {project.url && <a href={project.url} target="_blank" rel="noopener">visit ↗</a>}
-        </div>
-      </div>
+      </a>
     ))}
   </div>
 </BaseLayout>
