@@ -1,5 +1,5 @@
 ---
-title: "My first ZMK Planck, Part 2 — The bar and the matrix"
+title: "My first ZMK Planck, Part 2 — The alignment"
 date: 2026-09-22
 categories: ["builds", "keyboards"]
 tags: ["planck", "handwire", "zmk", "choc-v2", "nrf52840", "pogo-pins"]
