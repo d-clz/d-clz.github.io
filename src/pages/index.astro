@@ -21,7 +21,7 @@ function excerptOf(markdown: string, len = 160) {
   return text.length > len ? text.slice(0, len).trim() + '…' : text;
 }
 ---
-<BaseLayout title="Posts" activeNav="posts" wide>
+<BaseLayout title="Posts" activeNav="posts" wide path="~/dclz/posts">
   <div class="layout-with-rail">
     <SideRail
       ariaLabel="Post timeline"

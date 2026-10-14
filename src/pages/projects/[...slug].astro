@@ -15,10 +15,9 @@ export async function getStaticPaths() {
 const { project } = Astro.props;
 const { Content } = await project.render();
 ---
-<BaseLayout title={project.data.title} activeNav="projects">
+<BaseLayout title={project.data.title} activeNav="projects" path={`~/dclz/projects/${project.slug}`}>
   <article class="glass-panel">
     <div class="prose">
-      <span class="post-path">~/projects/{project.slug}</span>
       <h1>{project.data.title}</h1>
       <p class="meta">
         {project.data.tech.map((t) => <span class="post-tag">{t}</span>)}

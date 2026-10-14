@@ -13,8 +13,17 @@ interface Props {
   description?: string;
   activeNav?: 'posts' | 'projects';
   wide?: boolean;
+  /** Breadcrumb shown in the top-bar window title — e.g. "~/dclz/posts/my-post.md"
+      on a post page. Defaults to the site root. */
+  path?: string;
 }
-const { title, description = 'Blog from my Self-Notes', activeNav, wide = false } = Astro.props;
+const {
+  title,
+  description = 'Blog from my Self-Notes',
+  activeNav,
+  wide = false,
+  path = '~/dclz',
+} = Astro.props;
 ---
 <!doctype html>
 <html lang="en">
@@ -55,7 +64,7 @@ const { title, description = 'Blog from my Self-Notes', activeNav, wide = false 
             </div>
             <a class="win-title" href="/">
               <span aria-hidden="true">📁</span>
-              <span>~/dclz</span>
+              <span>{path}</span>
             </a>
           </div>
           <nav class="site-links">

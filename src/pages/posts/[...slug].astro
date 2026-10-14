@@ -17,7 +17,7 @@ const { post } = Astro.props;
 const { Content, headings } = await post.render();
 const sections = headings.filter((h) => h.depth === 2);
 ---
-<BaseLayout title={post.data.title} activeNav="posts" wide>
+<BaseLayout title={post.data.title} activeNav="posts" wide path={`~/dclz/posts/${post.slug}.md`}>
   <div class="layout-with-rail">
     <SideRail
       ariaLabel="Article sections"
@@ -25,7 +25,6 @@ const sections = headings.filter((h) => h.depth === 2);
     />
     <article class="glass-panel rail-main">
       <div class="prose">
-        <span class="post-path">~/posts/{post.slug}.md</span>
         <h1>{post.data.title}</h1>
         <p class="meta">
           <span class="post-date">
