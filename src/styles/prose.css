@@ -14,13 +14,6 @@
   line-height: 1.75;
 }
 
-.prose .post-path {
-  display: block;
-  font-size: 0.7rem;
-  color: var(--muted);
-  margin-bottom: 0.75rem;
-}
-
 .prose h1 {
   margin: 0 0 0.5rem;
   color: var(--fg-strong);

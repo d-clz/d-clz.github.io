@@ -5,7 +5,7 @@ import { getCollection } from 'astro:content';
 
 const projects = await getCollection('projects');
 ---
-<BaseLayout title="Projects" activeNav="projects">
+<BaseLayout title="Projects" activeNav="projects" path="~/dclz/projects">
   <div class="posts-grid">
     {projects.map((project) => (
       <a class="post-card glass-panel" href={`/projects/${project.slug}/`}>
